@@ -11,6 +11,7 @@ int main()
     //1.Adim: Socket olusturulmasi
     int sckt;
     sckt = socket(AF_INET, SOCK_STREAM, 0); // AF_inet: IPv4, SOCK_STREAM: TCP: Bagalanti noktasi olusturduk.
+
     if (sckt == -1)
         printf("ERROR: %s\n" , strerror(errno));
     else 
@@ -21,12 +22,14 @@ int main()
     struct sockaddr_in myserver;
     myserver.sin_family = AF_INET; // IPv4
     myserver.sin_addr.s_addr = inet_addr("127.0.0.1"); // IP Adresi
-    myserver.sin_port = htons(12345); // Port numarasi; htons fonksiyonu ile port numarasi network byte ordera cevirilir.
+    myserver.sin_port = htons(16345); // Port numarasi; htons fonksiyonu ile port numarasi network byte ordera cevirilir.
 
 
     //3.Adim: Socketin adres bilgileri ile baglanmasi
     int bnd;
     bnd = bind(sckt, (struct sockaddr *)&myserver, sizeof(myserver));
+
+    
     if (bnd == -1)
         printf("ERROR: %s\n" , strerror(errno));
     else 
@@ -36,6 +39,7 @@ int main()
     //4.Adim: Baglanti isteklerinin dinlenmesi
     int lstn;
     lstn = listen(sckt, 1); // 1: Maximum baglanti sayisi
+
     if (lstn == -1)
         printf("ERROR: %s\n" , strerror(errno));
     else 
@@ -48,26 +52,38 @@ int main()
         
     int clnt_accept;
     clnt_accept = accept(sckt, (struct sockaddr *)&client, &client_size);
+
     if (clnt_accept == -1)
         printf("ERROR: %s\n" , strerror(errno));
     else
     {
         printf("------Waiting for connection...\n");
-        sleep(5); // 5 saniye bekleme
+        sleep(1);
         printf("SUCCESSFUL | Connection Accepted\n");
     }
 
     //6.Adim: Mesaj alma
-    char msg[100];
-    int msg_size;
-    msg_size = recv(clnt_accept, msg, 100, 0); // 100: Mesajin boyutu
-    if (msg_size == -1)
-        printf("ERROR: %s\n" , strerror(errno));
-    else
+    while (1) // Surekli mesaj almak icin sonsuz dongu
     {
-        printf("------Waiting for message...\n");
-        sleep(5); // 5 saniye bekleme
-        printf("SUCCESSFUL | Message Received: %s\n", msg);
+        char msg[100];
+        int msg_size;
+        msg_size = recv(clnt_accept, msg, 100, 0); // 100: Mesajin boyutu
+
+        if (msg_size == -1)
+            printf("ERROR: %s\n" , strerror(errno));
+        else
+        {
+            printf("------Waiting for message...\n");
+            sleep(2); 
+            printf("SUCCESSFUL | Message Received: %s\n", msg);
+        }
+
+        if (strcmp(msg, "exit") == 0) 
+        {
+            printf("Bağlantı kapatılıyor...\n");
+            break;
+        }
+        memset(msg, 0, sizeof(msg)); // Mesajin icerigini sifirla
     }
 
     //7.Adim: Baglanti sonlandirma

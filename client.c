@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <unistd.h>
 
 int main ()
 {
@@ -20,7 +21,7 @@ int main ()
     struct sockaddr_in myclient;
     myclient.sin_family = AF_INET;
     myclient.sin_addr.s_addr = inet_addr("127.0.0.1");
-    myclient.sin_port = htons(12345);
+    myclient.sin_port = htons(16345);
 
 
     //3.Adim: Servera baglanma
@@ -29,15 +30,40 @@ int main ()
     if (cnct == -1)
         printf("ERROR: %s\n", strerror(errno));
     else
+    {
+        sleep(4);
         printf("SUCCESSFUL | Connection Established\n");
+    }
 
     
-    //4.Adim: Mesaj gonderme
-    char msg_client[] = "Hello from client!";
+    // 4. Adım: Mesaj gönderme
     int msg_size;
-    msg_size = send(sckt, msg_client, strlen(msg_client), 0);
-    if (msg_size == -1)
-        printf("ERROR: %s\n", strerror(errno));
-    else
-        printf("SUCCESSFUL | Message Sent\n");
+    char msg_client[100];
+
+    while (1) 
+    {
+        printf("Lütfen gönderilecek mesajı girin (çıkış için 'exit' yazın): ");
+        
+        if (fgets(msg_client, sizeof(msg_client), stdin) != NULL) 
+        {
+            // Sonundaki newline karakterini kaldır
+            size_t len = strlen(msg_client);
+            if (len > 0 && msg_client[len-1] == '\n') {
+                msg_client[len-1] = '\0';
+            }
+
+            msg_size = send(sckt, msg_client, strlen(msg_client), 0);
+
+            if (msg_size == -1)
+                printf("ERROR: %s\n", strerror(errno));
+            else
+                printf("SUCCESSFUL | Message Sent\n");
+            
+            // Çıkış komutu kontrolü
+            if (strcmp(msg_client, "exit") == 0) {
+                printf("Bağlantı kapatılıyor...\n");
+                break;
+            }
+        }
+    }
 }
