@@ -38,7 +38,7 @@ int main()
 
     //4.Adim: Baglanti isteklerinin dinlenmesi
     int lstn;
-    lstn = listen(sckt, 1); // 1: Maximum baglanti sayisi
+    lstn = listen(sckt, 5); // 5: Maximum baglanti sayisi
 
     if (lstn == -1)
         printf("ERROR: %s\n" , strerror(errno));
@@ -60,6 +60,9 @@ int main()
         printf("------Waiting for connection...\n");
         sleep(1);
         printf("SUCCESSFUL | Connection Accepted\n");
+        char client_ip[INET_ADDRSTRLEN];
+        inet_ntop(AF_INET, &client.sin_addr, client_ip, INET_ADDRSTRLEN);
+        printf("Connected to client: %s:%d\n", client_ip, ntohs(client.sin_port));
     }
 
     //6.Adim: Mesaj alma

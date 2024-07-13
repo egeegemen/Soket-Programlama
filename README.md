@@ -33,3 +33,11 @@ Yazdığım program cok basit anlamda soket programlamaya bir örnektir. Alt tar
   Stream Soket (TCP Soketi): İki uç arasında güvenilir, bağlantı temelli ve sıralı veri iletişimi sağlar. `SOCK_STREAM` türü olarak tanımlanır.
   Datagram Soket (UDP Soketi): Bağlantısız, güvenilir olmayan ve sırasız veri iletişimi sağlar. `SOCK_DGRAM` türü olarak tanımlanır.
 
+
+- **Serverda bind() yaptik, Pekii neden client kodunda bind islemi yoktur? **
+Bind İşlemi ve Server Bilgileri
+Bind İşlemi: İstemci tarafında genellikle bind işlemi yapılmasına gerek yoktur. Bind işlemi, sunucu tarafında kullanılır ve sunucunun belirli bir portta dinlemesini sağlar.
+Server Bilgileri: İstemci, sunucuya bağlanmak için sunucunun adres bilgilerini (struct sockaddr_in) belirtir. Bu bilgiler IP adresi ve bağlanılacak portu içerir.
+İstemci kodunda bind işlemi yapmamamızın nedeni, istemcinin dinlemek yerine sunucuya bağlanma amacı taşımasıdır. Sunucu tarafında ise bind işlemi yapılarak belirli bir portta dinlenir ve istemcilerin bağlantı isteklerini kabul eder.
+
+Bu şekilde istemci, belirli bir sunucuya bağlanarak iletişim kurabilir ve uygulamalar arasında veri transferi yapabilir.

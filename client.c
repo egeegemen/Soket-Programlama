@@ -18,15 +18,16 @@ int main ()
     
 
     //2.Adim: Serverin adres bilgilerinin belirlenmesi
-    struct sockaddr_in myclient;
-    myclient.sin_family = AF_INET;
-    myclient.sin_addr.s_addr = inet_addr("127.0.0.1");
-    myclient.sin_port = htons(16345);
+    struct sockaddr_in get_myserver;
+    get_myserver.sin_family = AF_INET;
+    get_myserver.sin_addr.s_addr = inet_addr("127.0.0.1");
+    get_myserver.sin_port = htons(16345);
+
 
 
     //3.Adim: Servera baglanma
     int cnct;
-    cnct = connect(sckt, (struct sockaddr *)&myclient, sizeof(myclient));
+    cnct = connect(sckt, (struct sockaddr *)&get_myserver, sizeof(get_myserver));
     if (cnct == -1)
         printf("ERROR: %s\n", strerror(errno));
     else
