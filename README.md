@@ -39,43 +39,54 @@ Yazdığım program cok basit anlamda soket programlamaya bir örnektir. Alt tar
   Bu şekilde istemci, belirli bir sunucuya bağlanarak iletişim kurabilir ve uygulamalar arasında veri transferi yapabilir.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Basit Soket Programlama Örneği
-Bu proje, soket programlama kavramlarını anlamanıza yardımcı olacak temel bir örnektir. Odak noktası, tek bir istemci ile sunucu arasındaki iletişimi sağlamaktadır.
+# Basit Soket Programlama Örneği
 
-Proje Açıklaması
-Bu proje, basit bir TCP/IP soket bağlantısı üzerine kuruludur ve iki temel bileşeni içermektedir:
+Bu proje, **soket programlama** kavramlarını anlamanıza yardımcı olacak temel bir örnektir. Odak noktası, **tek bir istemci** ile **sunucu** arasındaki iletişimi sağlamaktadır.
 
-Sunucu (server.c)
+## Proje Açıklaması
+
+Bu proje, basit bir **TCP/IP soket bağlantısı** üzerine kuruludur ve iki temel bileşeni içermektedir:
+
+**Sunucu (`server.c`)**
 
 Sunucu, istemci bağlantılarını kabul eder ve alınan mesajları işler.
 
-İstemci (client.c)
+**İstemci (`client.c`)**
 
 İstemci, belirtilen sunucuya bağlanır ve ona mesaj gönderebilir.
 
-Kullanım
-Sunucuyu Başlatma:
+## Kullanım
+
+### Sunucuyu Başlatma:
+
 Sunucuyu başlatmak için aşağıdaki komutu kullanın:
 
-bash
-Kodu kopyala
+```bash
+
 ./server
+```
+
 Sunucu, belirtilen bağlantı noktasında istemci bağlantılarını dinlemeye başlar.
 
-İstemciyi Başlatma:
+### İstemciyi Başlatma:
+
 İstemciyi başlatmak için aşağıdaki komutu kullanın:
 
-bash
-Kodu kopyala
+```bash
+
 ./client
+```
+
 İstemci, sunucuya bağlanacak ve ona mesaj göndermenize olanak tanıyacaktır.
 
-İletişim
+## İletişim
+
 İstemci bağlandığında ve sunucu mesaj almayı beklediğinde, iletişim başlar. İstemci bir mesaj gönderdiğinde, sunucu bu mesajı alır ve konsolda görüntüler.
 
-Bağlantıyı Sonlandırma
-Bağlantıyı sonlandırmak için istemci "exit" komutunu gönderebilir. Bu komutu aldığında, sunucu bağlantıyı kapatır ve sonlandırma işlemlerini tamamlar.
+## Bağlantıyı Sonlandırma
 
-Proje Genişletme
-Bu proje, temel soket programlama örnekleri sunar. Birden fazla istemci ile iletişim için çoklu soket programlama tekniklerini (örneğin çoklu iş parçacığı veya olay yönlendirme yaklaşımları) keşfetmeyi ve uygulamayı düşünebilirsiniz.
+Bağlantıyı sonlandırmak için istemci "**exit**" komutunu gönderebilir. Bu komutu aldığında, sunucu bağlantıyı kapatır ve sonlandırma işlemlerini tamamlar.
 
+## Proje Genişletme
+
+Bu proje, temel **soket programlama** örnekleri sunar. **Birden fazla istemci** ile iletişim için **çoklu soket programlama** tekniklerini (örneğin **çoklu iş parçacığı** veya **olay yönlendirme** yaklaşımları) keşfetmeyi ve uygulamayı düşünebilirsiniz.
