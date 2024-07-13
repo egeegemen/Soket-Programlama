@@ -36,6 +36,5 @@ Yazdığım program cok basit anlamda soket programlamaya bir örnektir. Alt tar
   Bind İşlemi: İstemci tarafında genellikle bind işlemi yapılmasına gerek yoktur. Bind işlemi, sunucu tarafında kullanılır ve sunucunun belirli bir portta dinlemesini sağlar.
   Server Bilgileri: İstemci, sunucuya bağlanmak için sunucunun adres bilgilerini (struct sockaddr_in) belirtir. Bu bilgiler IP adresi ve bağlanılacak portu içerir.
   İstemci kodunda bind işlemi yapmamamızın nedeni, istemcinin dinlemek yerine sunucuya bağlanma amacı taşımasıdır. Sunucu tarafında ise bind işlemi yapılarak belirli bir portta dinlenir ve istemcilerin bağlantı isteklerini kabul eder.
-
-Bu şekilde istemci, belirli bir sunucuya bağlanarak iletişim kurabilir ve uygulamalar arasında veri transferi yapabilir.
+  Bu şekilde istemci, belirli bir sunucuya bağlanarak iletişim kurabilir ve uygulamalar arasında veri transferi yapabilir.
 
