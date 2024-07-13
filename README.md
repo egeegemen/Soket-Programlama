@@ -89,4 +89,4 @@ Bağlantıyı sonlandırmak için istemci "**exit**" komutunu gönderebilir. Bu 
 
 ## Proje Genişletme
 
-Bu proje, temel **soket programlama** örnekleri sunar. **Birden fazla istemci** ile iletişim için **çoklu soket programlama** tekniklerini (örneğin **çoklu iş parçacığı** , **olay yönlendirme** yaklaşımları ya da **select()** ) keşfetmeyi ve uygulamayı düşünebilirsiniz.
+Bu proje, temel **soket programlama** örnekleri sunar. **Birden fazla istemci** ile iletişim için **çoklu soket programlama** tekniklerini [örneğin **çoklu iş parçacığı** , **olay yönlendirme** (select(), poll() gibi...) yaklaşımları ] keşfetmeyi ve uygulamayı düşünebilirsiniz.
