@@ -39,43 +39,43 @@ Yazdığım program cok basit anlamda soket programlamaya bir örnektir. Alt tar
   Bu şekilde istemci, belirli bir sunucuya bağlanarak iletişim kurabilir ve uygulamalar arasında veri transferi yapabilir.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Bu proje, temel soket (socket) kavramlarını anlamanıza yardımcı olacak bir örnektir. Tek bir istemcinin bir sunucuya bağlanmasını sağlar ve sunucu ile iletişim kurarak mesajlaşmasını sağlar.
+Basit Soket Programlama Örneği
+Bu proje, soket programlama kavramlarını anlamanıza yardımcı olacak temel bir örnektir. Odak noktası, tek bir istemci ile sunucu arasındaki iletişimi sağlamaktadır.
 
 Proje Açıklaması
-Bu proje, basit bir TCP/IP soket bağlantısı üzerine kuruludur. İstemci (client) ve sunucu (server) tarafı olmak üzere iki ana bileşeni vardır:
+Bu proje, basit bir TCP/IP soket bağlantısı üzerine kuruludur ve iki temel bileşeni içermektedir:
 
-Server (server.c): İstemci bağlantılarını kabul eder ve aldığı mesajları işler.
-Client (client.c): Belirli bir sunucuya bağlanır ve sunucuya mesaj gönderir.
+Sunucu (server.c)
+
+Sunucu, istemci bağlantılarını kabul eder ve alınan mesajları işler.
+
+İstemci (client.c)
+
+İstemci, belirtilen sunucuya bağlanır ve ona mesaj gönderebilir.
+
 Kullanım
-Server Başlatma:
+Sunucuyu Başlatma:
+Sunucuyu başlatmak için aşağıdaki komutu kullanın:
 
-./server komutunu kullanarak sunucuyu başlatın.
-Sunucu, belirtilen port üzerinde istemci bağlantılarını dinlemeye başlayacaktır.
-Client Başlatma:
+bash
+Kodu kopyala
+./server
+Sunucu, belirtilen bağlantı noktasında istemci bağlantılarını dinlemeye başlar.
 
-./client komutunu kullanarak istemciyi başlatın.
-İstemci, belirtilen sunucuya bağlanacak ve kullanıcıdan girdi alarak sunucuya mesaj gönderebilecektir.
-İletişim:
+İstemciyi Başlatma:
+İstemciyi başlatmak için aşağıdaki komutu kullanın:
 
-İstemci bağlandığında ve sunucu mesaj almayı beklediğinde, iletişim başlar.
-İstemci herhangi bir mesaj gönderdiğinde, sunucu bu mesajı alacak ve ekrana yazdıracaktır.
-Sonlandırma:
+bash
+Kodu kopyala
+./client
+İstemci, sunucuya bağlanacak ve ona mesaj göndermenize olanak tanıyacaktır.
 
-İstemci, "exit" komutunu göndererek bağlantıyı sonlandırabilir.
-Sunucu, "exit" mesajını aldığında bağlantıyı kapatır ve sonlandırma işlemlerini tamamlar.
-Bu proje, başlangıç seviyesinde soket programlama konularını anlamanızı sağlamak için tasarlanmıştır. Tek bir istemcinin sunucuya bağlanması ve iletişim kurması üzerinde odaklanır.
+İletişim
+İstemci bağlandığında ve sunucu mesaj almayı beklediğinde, iletişim başlar. İstemci bir mesaj gönderdiğinde, sunucu bu mesajı alır ve konsolda görüntüler.
 
+Bağlantıyı Sonlandırma
+Bağlantıyı sonlandırmak için istemci "exit" komutunu gönderebilir. Bu komutu aldığında, sunucu bağlantıyı kapatır ve sonlandırma işlemlerini tamamlar.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Tek İstemci ile Sunucu İletişimi Örneği
-Bu proje, temel soket (socket) kavramlarını anlamanıza yönelik bir örnektir. Tek bir istemcinin bir sunucuya bağlanmasını ve sunucu ile iletişim kurmasını sağlar.
-
-Çoklu İstemci İletişimi
-Birden fazla istemcinin aynı anda sunucu ile iletişim kurabilmesi için çoklu soket programlaması kullanılmalıdır. Çoklu soket programlama, aynı sunucu üzerinde birden fazla bağlantıyı yönetmek için gereklidir. Bu yöntem genellikle şu şekillerde uygulanabilir:
-
-Çoklu İş Parçacığı (Multi-threading): Her istemci bağlantısı için yeni bir iş parçacığı oluşturulur. Her iş parçacığı, bağlantıyı kabul eder, veri alışverişi yapar ve bağlantıyı sonlandırır.
-
-Olay Yönlendirme (Event-Driven): Bir olay döngüsü (event loop) kullanarak tek bir iş parçacığında birden fazla bağlantıyı yönetir. Non-blocking soketler ve olay bildirimleri (event notifications) kullanılarak çoklu bağlantılar eş zamanlı olarak hizmet verir.
-
-Bu örnekte, sadece tek bir istemcinin sunucu ile iletişim kurması gösterilmiştir. Çoklu istemci desteği eklemek için ilgili çoklu soket programlama tekniklerini inceleyebilir ve projenizi bu doğrultuda genişletebilirsiniz.
+Proje Genişletme
+Bu proje, temel soket programlama örnekleri sunar. Birden fazla istemci ile iletişim için çoklu soket programlama tekniklerini (örneğin çoklu iş parçacığı veya olay yönlendirme yaklaşımları) keşfetmeyi ve uygulamayı düşünebilirsiniz.
 
