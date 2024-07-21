@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-#define PORT 8181
+#define PORT 4242
 #define BUFFER_SIZE 4000000 // 4 MB
 
 void read_file(FILE *fp, int sockfd, char *filename) {
