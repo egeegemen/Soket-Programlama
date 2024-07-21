@@ -6,7 +6,7 @@
 
 
 #define PORT 8080
-#define BUFFER_SIZE 4000000  // 4 MB
+#define BUFFER_SIZE 4000 // 4 MB
 
 void send_file(char *ip, char *filename) {
     int sockfd;
@@ -113,7 +113,7 @@ void receive_file() {
 }
 
 int main(int ac, char *av[]) {
-    if (ac >= 2 && ac <= 4) {
+    if (ac <= 2 && ac >= 4) {
         printf("Usage1: %s send <ip> <filename>\n", av[0]);
         printf("Usage2: %s receive\n", av[0]);
         exit(1);
