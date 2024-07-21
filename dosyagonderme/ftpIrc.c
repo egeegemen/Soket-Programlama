@@ -6,7 +6,7 @@
 
 
 #define PORT 8181
-#define BUFFER_SIZE 4000 // 4 MB
+#define BUFFER_SIZE 4000000 // 4 MB
 
 void read_file(FILE *fp, int sockfd, char *filename) {
     char buffer[BUFFER_SIZE] = {0};
