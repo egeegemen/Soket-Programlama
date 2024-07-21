@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define PORT 8080
-#define BUFFER_SIZE 6002400
+#define BUFFER_SIZE 4000000 // 4 MB
 
 void send_file(FILE *fp, int sockfd, char *filename) {
     char buffer[BUFFER_SIZE] = {0};
