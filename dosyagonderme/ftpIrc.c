@@ -8,7 +8,7 @@
 #define PORT 8181
 #define BUFFER_SIZE 4000 // 4 MB
 
-void send_file(FILE *fp, int sockfd, char *filename) {
+void read_file(FILE *fp, int sockfd, char *filename) {
     char buffer[BUFFER_SIZE] = {0};
     int n;
     int total_bytes = 0;
@@ -26,7 +26,7 @@ void send_file(FILE *fp, int sockfd, char *filename) {
     }
 }
 
-void send(char *ip, char *filename) {
+void send_file(char *ip, char *filename) {
     int sockfd;
     struct sockaddr_in server_addr;
     FILE *fp;
@@ -54,7 +54,7 @@ void send(char *ip, char *filename) {
         exit(1);
     }
 
-    send_file(fp, sockfd, filename);
+    read_file(fp, sockfd, filename);
     printf("File data sent successfully.\n");
 
     fclose(fp);
@@ -138,7 +138,7 @@ void receive_file(char *ip) {
 int main(int ac, char *av[]) {
     if (ac >= 2 && ac <= 4) {
         if (strcmp(av[1], "send"))
-            send(av[2], av[3]);
+            send_file(av[2], av[3]);
         else if (strcmp(av[1], "receive"))
             receive_file(av[2]);
         else {
