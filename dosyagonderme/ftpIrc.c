@@ -36,7 +36,7 @@ void send_file(char *ip, char *filename) {
         perror("Error in socket.");
         exit(1);
     }
-    printf("Server socket created successfully.\n");
+    printf("Client socket created successfully.\n");
 
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(PORT);
@@ -137,9 +137,9 @@ void receive_file(char *ip) {
 
 int main(int ac, char *av[]) {
     if (ac >= 2 && ac <= 4) {
-        if (strcmp(av[1], "send"))
+        if (!strcmp(av[1], "send"))
             send_file(av[2], av[3]);
-        else if (strcmp(av[1], "receive"))
+        else if (!strcmp(av[1], "receive"))
             receive_file(av[2]);
         else {
             printf("Invalid command.\n");
