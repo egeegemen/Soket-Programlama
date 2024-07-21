@@ -5,14 +5,20 @@
 #include <string.h>
 
 #define PORT 8080
-#define BUFFER_SIZE 10240
+#define BUFFER_SIZE 4099999  // 4 MB
 
 void write_file(int new_sock) {
     int n;
     FILE *fp;
-    char *filename = "recv_file.zip";
+    char filename[100];
     char buffer[BUFFER_SIZE];
     int total_bytes = 0;  // Toplam alınan byte miktarı
+    
+    memset(filename, 0, 100); // Dosya adı için belleği temizleyin
+    recv(new_sock, filename, 100, 0);
+    filename[strcspn(filename, "\n")] = 0;  // Dosya adının sonundaki yeni satır karakterini kaldırın
+    recv(new_sock, buffer, 1, 0);  // Dosya adının alınmasını beklemek için 1 byte alın
+    printf("File name: %s\n", filename);
 
     fp = fopen(filename, "wb");
     if (fp == NULL) {
@@ -23,7 +29,7 @@ void write_file(int new_sock) {
      while ((n = recv(new_sock, buffer, BUFFER_SIZE, 0)) > 0) {
         fwrite(buffer, sizeof(char), n, fp);
         total_bytes += n;
-        printf("Received %d bytes, Total: %.2f MB\n", n, total_bytes / (1024.0 * 1024.0));  // Byte'dan MB'ye çevirme
+        printf("Received %.2f bytes, Total: %.2f MB\n", n / (1024.0 * 1024.0), total_bytes / (1024.0 * 1024.0));  // Byte'dan MB'ye çevirme
         memset(buffer, 0, BUFFER_SIZE);
     }
     fclose(fp);

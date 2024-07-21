@@ -5,27 +5,32 @@
 #include <string.h>
 
 #define PORT 8080
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 6002400
 
-void send_file(FILE *fp, int sockfd) {
+void send_file(FILE *fp, int sockfd, char *filename) {
     char buffer[BUFFER_SIZE] = {0};
     int n;
+    int total_bytes = 0;
 
+    send(sockfd, filename, strlen(filename), 0);
+    send(sockfd, "\n", 1, 0);
     while ((n = fread(buffer, sizeof(char), BUFFER_SIZE, fp)) > 0) {
         if (send(sockfd, buffer, n, 0) == -1) {
             perror("Error in sending file.");
             exit(1);
         }
+        total_bytes += n;
+        printf("Gönderilen %.2f / Toplam MB: %.2f MB\n", n / (1024.0 * 1024.0), total_bytes / (1024.0 * 1024.0));
         memset(buffer, 0, BUFFER_SIZE);
     }
 }
 
-int main() {
-    char *ip = "127.0.0.1";
+int main(int ac, char *av[]) {
+    char *ip = "10.12.2.6";
     int sockfd;
     struct sockaddr_in server_addr;
     FILE *fp;
-    char *filename = "file.pdf";
+    char *filename = av[1];
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
@@ -50,7 +55,7 @@ int main() {
         exit(1);
     }
 
-    send_file(fp, sockfd);
+    send_file(fp, sockfd, filename);
     printf("File data sent successfully.\n");
 
     fclose(fp);
