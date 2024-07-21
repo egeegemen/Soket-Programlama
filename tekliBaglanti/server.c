@@ -22,7 +22,7 @@ int main()
     struct sockaddr_in myserver;
     myserver.sin_family = AF_INET; // IPv4
     myserver.sin_addr.s_addr = inet_addr("127.0.0.1"); // IP Adresi
-    myserver.sin_port = htons(16345); // Port numarasi; htons fonksiyonu ile port numarasi network byte ordera cevirilir.
+    myserver.sin_port = htons(17345); // Port numarasi; htons fonksiyonu ile port numarasi network byte ordera cevirilir.
 
 
     //3.Adim: Socketin adres bilgileri ile baglanmasi
@@ -48,7 +48,7 @@ int main()
 
     //5.Adim: Baglanti kabul etme
     struct sockaddr_in client; // Clientin adres bilgilerini serverda tutmak icin olusturuldu.
-    int client_size = sizeof(client);
+    unsigned int client_size = sizeof(client);
         
     int clnt_accept;
     clnt_accept = accept(sckt, (struct sockaddr *)&client, &client_size);
@@ -61,8 +61,8 @@ int main()
         sleep(1);
         printf("SUCCESSFUL | Connection Accepted\n");
         char client_ip[INET_ADDRSTRLEN];
-        inet_ntop(AF_INET, &client.sin_addr, client_ip, INET_ADDRSTRLEN);
-        printf("Connected to client: %s:%d\n", client_ip, ntohs(client.sin_port));
+        inet_ntop(AF_INET, &client.sin_addr, client_ip, INET_ADDRSTRLEN); // inet_ntop: IP adresini network byte orderdan host byte ordera cevirir.
+        printf("Connected to client: %s:%d\n", client_ip, ntohs(client.sin_port)); // ntohs: Port numarasi network byte orderdan host byte ordera cevirir.
     }
 
     //6.Adim: Mesaj alma

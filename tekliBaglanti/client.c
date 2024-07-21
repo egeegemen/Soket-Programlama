@@ -21,7 +21,7 @@ int main ()
     struct sockaddr_in get_myserver;
     get_myserver.sin_family = AF_INET;
     get_myserver.sin_addr.s_addr = inet_addr("127.0.0.1");
-    get_myserver.sin_port = htons(16345);
+    get_myserver.sin_port = htons(17345);
 
 
 
