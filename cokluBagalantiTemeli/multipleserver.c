@@ -14,7 +14,7 @@ int main()
     int client_sockets[30], max_clients = 30;
     struct sockaddr_in server, client;
     char buffer[1025];  // data buffer of 1K
-    fd_set readfds;     // Bu set, select fonksiyonu tarafından izlenecek soketleri tutar
+    fd_set readfds;     // Bu set(kume), select fonksiyonu tarafından izlenecek soketleri tutar
 
     // Initialize all client_sockets to 0 so not checked
     for (int i = 0; i < max_clients; i++) 
