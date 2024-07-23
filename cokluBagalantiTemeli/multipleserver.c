@@ -17,11 +17,11 @@ int main()
     fd_set readfds;     // Bu set(kume), select fonksiyonu tarafından izlenecek soketleri tutar
 
     // Initialize all client_sockets to 0 so not checked
-    for (int i = 0; i < max_clients; i++) 
+    for (int i = 0; i < max_clients; i++)
         client_sockets[i] = 0;
 
     // Step 1: Create socket
-    server_socket = socket(AF_INET, SOCK_STREAM, 0); 
+    server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket == -1)
     {
         printf("ERROR: %s\n", strerror(errno));
@@ -29,10 +29,12 @@ int main()
     }
     printf("SERVER SOCKET CREATED\n");
 
+
     // Step 2: Define server address
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = inet_addr("127.0.0.1");
     server.sin_port = htons(12121);
+
 
     // Step 3: Bind socket to address
     if (bind(server_socket, (struct sockaddr *)&server, sizeof(server)) < 0)
@@ -42,6 +44,7 @@ int main()
         exit(EXIT_FAILURE);
     }
     printf("BIND SUCCESSFUL\n");
+
 
     // Step 4: Listen for incoming connections
     if (listen(server_socket, 3) < 0)
@@ -61,9 +64,9 @@ int main()
 
         // Add server_socket to set
         FD_SET(server_socket, &readfds);
-        max_sd = server_socket; //Burada server soketini en büyük soket olarak ayarladık. Bu, select fonksiyonunun bu soketi izlemesini sağlar.
+        max_sd = server_socket; //Burada server soketini en büyük soket olarak ayarladık. Bu, select fonksiyonunun en büyük soket numarasina kadar kontrol etmesini sağlar.
 
-        // Add child sockets to set
+        // Kumeye soketleri ekle
         for (int i = 0; i < max_clients; i++) 
         {
             // Socket descriptor
@@ -115,7 +118,7 @@ int main()
         {
             sd = client_sockets[i];
 
-            if (FD_ISSET(sd, &readfds)) 
+            if (FD_ISSET(sd, &readfds)) // Eğer soket sette varsa, mesajı oku
             {
                 // Burada gelen mesajı okuyoruz ve eğer mesaj "exit" ise bağlantıyı kapatıyoruz.
                 int valread;
